@@ -23,7 +23,7 @@ make
 Which creates the two executables: `marvin` and `marvin\_prep`. If you choose to install HTSlib elsewhere you must change the `HTSLIB_PATH` variable the MarViN Makefile to point to your HTSlib directory.
 
 ##marvin_prep
-Set up means and covariances for marvin
+Set up means and covariances for marvin - only necessary if you have a reference panel - if you want to genotype a large cohort from likelihoods you do not need to run this.
 
 Usage:
 ```./marvin_prep -f input.vcf.gz -O z -o sites.vcf.gz -om mu.dat -ov sig.dat -ow omega.dat```
