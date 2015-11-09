@@ -2,12 +2,12 @@
 Genotype imputation and refinement
 
 ##License
-MarViN source code is provided under the GPLv3 license. MarViN includes several third party packages provided under other open source licenses, please see COPYRIGHT.txt for additional details.
+MarViN source code is provided under the [GPLv3](https://git.illumina.com/rarthur/MarViN/blob/master/LICENSE.txt) license. MarViN includes several third party packages provided under other open source licenses, please see [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt) for additional details.
 
 ##Installation
-MarViN relies on HTSlib and Eigen. [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) is a header only library for matrix algebra released under the MPL2 license - see the link (https://www.mozilla.org/en-US/MPL/2.0/) and COPYRIGHT.txt. Eigen does not require installation. 
+MarViN relies on HTSlib and Eigen. [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) is a header only library for matrix algebra released under the MPL2 license - see the link (https://www.mozilla.org/en-US/MPL/2.0/) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt). Eigen does not require installation. 
 ###HSTlib
-[HTSlib](http://www.htslib.org/) is a library for efficently parsing vcf files released under the MIT/Expat License - see the link (https://opensource.org/licenses/MIT) and COPYRIGHT.txt. You can install HTSlib by following the installation instructions in the INSTALL file. Simplest is to just install it where it is e.g.
+[HTSlib](http://www.htslib.org/) is a library for efficently parsing vcf files released under the MIT/Expat License - see the link (https://opensource.org/licenses/MIT) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt). You can install HTSlib by following the installation instructions in the INSTALL file. Simplest is to just install it where it is e.g.
 ```
 cd /home/yourname/MarViN/htslib-1.2.1/
 ./configure --prefix=/home/yourname/MarViN/htslib-1.2.1/
