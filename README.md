@@ -20,7 +20,7 @@ If you have installed HTSlib as above then make MarViN via
 cd /home/yourname/MarViN/
 make
 ```
-Which creates the two executables: marvin and marvin\_prep. If you choose to install htslib elsewhere you must change the `HTSLIB_PATH` variable the MarViN Makefile to point to your HTSlib directory.
+Which creates the two executables: `marvin` and `marvin\_prep`. If you choose to install HTSlib elsewhere you must change the `HTSLIB_PATH` variable the MarViN Makefile to point to your HTSlib directory.
 
 ##marvin_prep
 Set up means and covariances for marvin
