@@ -1,0 +1,5 @@
+*.o
+*~
+*.pico
+marvin
+marvin_prep
