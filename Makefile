@@ -18,9 +18,9 @@ debug: all
 profile: CFLAGS = -std=c++11 -pg -O3 -fopenmp
 profile: all
 
-marvin_prep: marvin_prep.cpp 
+marvin_prep: marvin_prep.cpp $(HTSLIB)
 	$(CXX) $(CFLAGS) -o marvin_prep marvin_prep.cpp $(IFLAGS) $(HTSLIB) $(LFLAGS) 
-marvin: marvin.cpp
+marvin: marvin.cpp $(HTSLIB)
 	$(CXX) $(CFLAGS) -o marvin marvin.cpp  $(IFLAGS) $(HTSLIB) $(LFLAGS) 	
 clean:
 	rm marvin marvin_prep
