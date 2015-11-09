@@ -37,9 +37,9 @@ Expects input.vcf.gz to contain hard genotypes. Options:
 * -ow : file name for the matrix of inverses.
 * -ov : file name for the vector of variances.
 * -sigma_reg : use sigmoid function of allele frequency in regularization. Can perform better at low allele frequencies. Default regularization (without this option) is `Sigma(i,i) += lambda` with this option it is `Sigma(i,i) += lambda / (1.0 + exp( lambda2 * ( Sigma(i,i) - pct ) ) )`
-* -lambda : regularization parameter, changing this has some effect on the results but 0.06 was optimal for most of our tests.
-* -lambda2 : regularization parameter, controls steepness of sigma regularization.
-* -pct : regularization parameter, controls the midpoint of the sigma regularization.
+* -lambda : regularization parameter, changing this has some effect on the results but 0.06 was optimal for most of our tests. Default is 0.06.
+* -lambda2 : regularization parameter, controls steepness of sigma regularization. Default is 4.
+* -pct : regularization parameter, controls the midpoint of the sigma regularization. Default is 0.2.
 * -r : regions chr:start-end. Section of the genome to operate on. 
 
 ##marvin
@@ -61,20 +61,23 @@ Expects input_filename.vcf.gz to contain GL or PL field
   * -fv : vector of variances output by marvin_prep (-ov output).
   * -site : site only vcf output by marvin_prep (-o output).
   * -zm : zero missing rows (assumes 0/0 for missing data)
-  * -c : collapse snps|indels|both|all|some|none. Controls how intersection of sample and panel is performed. Similar to bcftools isec.
+  * -c : collapse snps|indels|both|all|some|none. Controls how intersection of sample and panel is performed. Similar to bcftools isec. Default none.
 * Run pararmeters
-  * -max_its : Number of ‘outer’ iterations of marvin (re-estimations of the covariance matrix). Only has an effect when not using panel.
-  * -inner_its : Number of ‘inner’ iterations of marvin (re-estimations of data with fixed covariance).
+  * -max_its : Number of ‘outer’ iterations of marvin (re-estimations of the covariance matrix). Only has an effect when not using panel. Default 5.
+  * -inner_its : Number of ‘inner’ iterations of marvin (re-estimations of data with fixed covariance). Default 1.
   * -maxlr : Maximum allowed likelihood ratio. Likelihood ratios larger than specified threshold will set the smaller likelihood to zero.
-  * -bias : MarViN works with expected values, when calling hard genotypes if the expected value is less than this parameter it reports hom-ref. If the expected value is between bias and 2-bias it reports het if above 2-bias reports hom-alt.
-  * -EMits : When not using a panel marvin does EM on allele frequencies to compute an initial guess. Specifies how many iterations to perform (fewer is generally better).
+  * -bias : MarViN works with expected values, when calling hard genotypes if the expected value is less than this parameter it reports hom-ref. If the expected value is between bias and 2-bias it reports het if above 2-bias reports hom-alt. Default 0.5.
+  * -EMits : When not using a panel marvin does EM on allele frequencies to compute an initial guess. Specifies how many iterations to perform (fewer is generally better). Default 1.
 * Regularization parameters
   * -sigma_reg : use sigmoid function of allele frequency in regularization. Can perform better at low allele frequencies. Default regularization (without this option) is `Sigma(i,i) += lambda` with this option it is `Sigma(i,i) += lambda / (1.0 + exp( lambda2 * ( Sigma(i,i) - pct ) ) )`.
-  * -lambda : regularization parameter, changing has some effect on the results but 0.06 was optimal for most of our tests.
-  * -lambda2 : regularization parameter, controls steepness of sigma regularization.
-  * -pct : regularization parameter, controls the midpoint of the sigma regularization.
+  * -lambda : regularization parameter, changing has some effect on the results but 0.06 was optimal for most of our tests. Default is 0.06.
+  * -lambda2 : regularization parameter, controls steepness of sigma regularization. Default is 4.
+  * -pct : regularization parameter, controls the midpoint of the sigma regularization. Default is 0.2.
 
 #Examples
+
+MarViN should be run on a small window (recommend 200Kb) using the -r parameter. If there are M variants in a window MarViN scales like M<sup>2</sup> for memory consumption and M<sup>3</sup> for speed. Linkage-Disequilibrium, which creates the correlation patterns used by MarViN, typically decays rapidly with distance. In our experiments we found window sizes between 50Kb and 200Kb to be adequate.
+
 ##Call genotypes from a population given likelihoods
 Assuming that `input.vcf.gz` contains genotype likelihoods and is indexed (.csi or .tbi)
 ```
