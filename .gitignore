@@ -1,5 +1,7 @@
 *.o
 *~
 *.pico
+*.a
 marvin
 marvin_prep
+htslib-1.2.1/version.h
