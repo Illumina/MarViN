@@ -5,22 +5,16 @@ Genotype imputation and refinement
 MarViN source code is provided under the [GPLv3](https://git.illumina.com/rarthur/MarViN/blob/master/LICENSE.txt) license. MarViN includes several third-party packages provided under other open source licenses, please see [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt) for additional details.
 
 ##Installation
-MarViN relies on HTSlib and Eigen. [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) is a header-only library for matrix algebra released under the MPL2 license - see the link (https://www.mozilla.org/en-US/MPL/2.0/) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt). Eigen does not require installation. 
-###HTSlib
-[HTSlib](http://www.htslib.org/) is a library for efficently parsing vcf files released under the MIT/Expat License - see the link (https://opensource.org/licenses/MIT) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt). You can install HTSlib by following the installation instructions in the INSTALL file. Simplest is to just install it where it is e.g.
+MarViN relies on HTSlib and Eigen. [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) is a header-only library for matrix algebra released under the MPL2 license - see the link (https://www.mozilla.org/en-US/MPL/2.0/) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt). [HTSlib](http://www.htslib.org/) is a library for efficently parsing vcf files released under the MIT/Expat License - see the link (https://opensource.org/licenses/MIT) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt).
+Both Eigen and HTSlib are included with MarViN.
+
+You can install MarViN via the following commands:
 ```
-cd /home/yourname/MarViN/htslib-1.2.1/
-./configure --prefix=/home/yourname/MarViN/htslib-1.2.1/
-make
-make install
-```
-###MarViN
-If you have installed HTSlib as above then make MarViN via
-```
-cd /home/yourname/MarViN/
+git clone https://github.com/sequencing/MarViN
+cd MarViN/
 make
 ```
-Which creates the two executables: `marvin` and `marvin_prep`. If you choose to install HTSlib elsewhere you must change the `HTSLIB_PATH` variable in the MarViN Makefile to point to your HTSlib directory.
+Which creates the two executables: `marvin` and `marvin_prep`.
 
 ##marvin_prep
 Set up means and covariances for marvin - only necessary if you have a reference panel - if you want to genotype a large cohort from likelihoods you do not need to run this.
