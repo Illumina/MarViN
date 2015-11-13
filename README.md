@@ -1,7 +1,7 @@
 # MarViN
 Rapid Genotype Refinement for Whole-Genome Sequencing Data using Multi-Variate Normal Distribution. This software is not commercially supported.
 
-Copyright (c) 2014, Illumina, Inc. All rights reserved.
+Copyright (c) 2015, Illumina, Inc. All rights reserved.
 
 See our [pre-print](http://biorxiv.org/content/biorxiv/early/2015/11/12/031484.full.pdf) for a full description of the method.
 
