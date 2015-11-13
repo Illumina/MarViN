@@ -1,6 +1,8 @@
 # MarViN
 Genotype imputation and refinement
 
+See our [pre-print](http://biorxiv.org/content/biorxiv/early/2015/11/12/031484.full.pdf) for a full description of the method.
+
 ##License
 MarViN source code is provided under the [GPLv3](https://git.illumina.com/rarthur/MarViN/blob/master/LICENSE.txt) license. MarViN includes several third-party packages provided under other open source licenses, please see [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt) for additional details.
 
