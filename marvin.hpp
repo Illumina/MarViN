@@ -11,9 +11,14 @@
 #include <fstream>
 #include <string>
 #include <omp.h>
+#include "htslib/hts.h"
 
 using namespace std;
 using namespace Eigen;
+
+extern "C" {
+#include "htslib/synced_bcf_reader.h"
+}
 
 //No dependency on boost etc. Very simple command line reading
 char* getCmdOption(char ** begin, char ** end, const string & option)
@@ -30,10 +35,46 @@ bool cmdOptionExists(char** begin, char** end, const std::string& option)
     return find(begin, end, option) != end;
 }
 
+pair<int32_t, int32_t> get_range(string filename){
+	
+	int32_t first = -1;
+	int32_t last = -1;
+	
+	bcf_srs_t *sr =  bcf_sr_init() ; ///htslib synced reader.
+	if(!(bcf_sr_add_reader (sr, filename.c_str() ))){ cerr << "Problem opening " << filename << endl; exit(1); }
+
+	bcf1_t *line; ///bcf/vcf line structure.
+
+	//read the input
+	while(bcf_sr_next_line (sr)) { 
+			
+		line =  bcf_sr_get_line(sr, 0);
+		if( first == -1 ){ first = line->pos+1; }
+		
+	}
+	last = line->pos+1;	
+	
+	bcf_sr_destroy(sr);	
+	
+	return make_pair(first, last);
+}
+
+//Old code for rearranging covariance matrix
+void swapRC(Ref<MatrixXf> A, int i, int j){
+	A.row(i).swap(A.row(j));
+	A.col(i).swap(A.col(j));
+}
+
 //un-normalised Gaussian function
 float Normal(float x, float mu, float sigma){
 	return exp( -(x - mu) * (x - mu) / (2.0 * sigma) ); //normalise by hand anyway
 }
+
+//un-normalised Gaussian function
+float Normal(float x, float mu, float sigma, float beta){
+	return exp( -beta * (x - mu) * (x - mu) / (2.0 * sigma) ); //normalise by hand anyway
+}
+
 
 //Compute all inverses and dot products in one step.
 void calc_lv_mem_noblock(
@@ -43,7 +84,7 @@ Ref<VectorXf> sigs
 ){
 	
 	int M = Sigma.rows();
-	//sub matrixes to do all the Schur compliments
+	//sub matrixes //complicated matrix algebra to do all the Schur compliments in one step
 	MatrixXf inv = Sigma.partialPivLu().inverse(); 
 	MatrixXf Sigp = Sigma; Sigp.diagonal() = VectorXf::Zero(M);
 	Sigp *= inv; 
@@ -66,11 +107,11 @@ Ref<MatrixXf> D
 	int N = D.cols();
 	
 	if(calc_invs){
-		cerr << "calculating inverses " << endl;	
+		//cerr << "calculating inverses " << endl;	
 		calc_lv_mem_noblock(Sigma, lv, sigs); 
 	} 
 
-	cerr << "Iterating over samples" << endl;
+	//cerr << "Iterating over samples" << endl;
 	#pragma omp parallel for	//might as well use extra cores for other windows but here anyway for some cases
 	for(int ind=0; ind<N; ++ind){
 
@@ -103,7 +144,7 @@ Ref<MatrixXf> D
 	
 }
 
-//Routine for re-calculating correct final genotype probabilities
+//Annoying routine for calculating correct final genotype probabilities
 void write_triple(Ref<MatrixXf> Sigma, 
 Ref<VectorXf> mu, 
 Ref<MatrixXf> lv,
@@ -114,10 +155,10 @@ vector< float* >& gp
  ){
 	int M = D.rows();
 	int N = D.cols();
-	cerr << "Calculating final genotype probabilities" << endl;
+	//cerr << "Calculating final genotype probabilities" << endl;
 	//No inv calculation, already have it from last iteration
 
-	cerr << "Iterating over samples" << endl;
+	//cerr << "Iterating over samples" << endl;
 	//#pragma omp parallel for
 	for(int ind=0; ind<N; ++ind){
 

@@ -84,11 +84,11 @@ for(int i=0; i<M; ++i){
 	
 }
 
-void random_phase(Ref<MatrixXf> D, Ref<MatrixXf> D2, float rand_sub=0.1){
+void random_phase(Ref<MatrixXf> D, Ref<MatrixXf> D2, vector<bool> &phased, float rand_sub=0.1){
 	
 int M = D.rows();
 int N = D.cols();
-	cout << rand_sub << endl;
+
 	for(int i=0; i<M; ++i){
 	for(int j=0; j<N; ++j){
 		double min = abs(D(i,j)); int kmin = 0;
