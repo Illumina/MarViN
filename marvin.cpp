@@ -35,8 +35,8 @@ void usage(){
   cerr << "\t -num_threads: 	threads in a single window (default 1)" << endl;
   cerr << "\n\t  Window params...\n" << endl;
   cerr << "\t -r: 			chromosome region (mandatory)" << endl;
-  cerr << "\t -b: 			block size (mandatory with sites file)" << endl;
-  cerr << "\t -ov: 			overlap (mandatory with sites file)" << endl;
+  cerr << "\t -b: 			block size (mandatory)" << endl;
+  cerr << "\t -ov: 			overlap (mandatory)" << endl;
   cerr << "\n\t  Panel params...\n" << endl;
   cerr << "\t -site:	vcf with sites in panel label" << endl;
   cerr << "\t -c:		collapse snps|indels|both|all|some|none" << endl;
