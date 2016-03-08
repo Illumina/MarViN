@@ -34,7 +34,7 @@ void usage(){
   cerr << "\t -v:			verbose output" << endl;
   cerr << "\t -num_threads: 	threads in a single window (default 1)" << endl;
   cerr << "\n\t  Window params...\n" << endl;
-  cerr << "\t -r: 			chromosome region (mandatory with sites file)" << endl;
+  cerr << "\t -r: 			chromosome region (mandatory)" << endl;
   cerr << "\t -b: 			block size (mandatory with sites file)" << endl;
   cerr << "\t -ov: 			overlap (mandatory with sites file)" << endl;
   cerr << "\n\t  Panel params...\n" << endl;
