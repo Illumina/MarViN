@@ -650,7 +650,7 @@ int main(int argc, char* argv[])
 		
     if( use_panel ){ 
       if( bcf_sr_has_line(reader,1) && !bcf_sr_has_line(reader,0) ){ 
-		  line =  bcf_sr_get_line(reader, 0); 
+		  line =  bcf_sr_get_line(reader, 1); 
 		  if(line->n_allele == 2  && line->pos+1 >= pos_left && line->pos+1 < pos_right ){++nline;}
 	  }
       if( !isec_only && bcf_sr_has_line(reader,0) && !bcf_sr_has_line(reader,1) ){ 
