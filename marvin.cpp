@@ -600,12 +600,19 @@ int main(int argc, char* argv[])
 	  int32_t *gq_arr = new int32_t[N];//FORMAT/GQ this is phred scale probablity the most likely genotype is wrong (good for filtering)
 	  while(bcf_sr_next_line (reader)) { 
 			
+		if( bcf_sr_has_line(reader,0) ){ 
+			line =  bcf_sr_get_line(reader, 0); 
+	    }
+	  
+		if( bcf_sr_has_line(reader,1) ){ 
+			line =  bcf_sr_get_line(reader, 1); 
+	    }
+	    
 		bool count = true;
 		if( use_panel ){ count = (bcf_sr_has_line(reader,0) && bcf_sr_has_line(reader,1)); }
 		if( count ){	
 		  line =  bcf_sr_get_line(reader, 0); 
-
-		  if(line->n_allele == 2  && line->pos+1 >= pos_left && line->pos+1 < pos_right ){
+		  if(line->n_allele == 2  && line->pos+1 >= pos && line->pos+1 < pos+block ){
 					
 		  for(int i=0; i<N; ++i){ 
 								
@@ -651,11 +658,12 @@ int main(int argc, char* argv[])
     if( use_panel ){ 
       if( bcf_sr_has_line(reader,1) && !bcf_sr_has_line(reader,0) ){ 
 		  line =  bcf_sr_get_line(reader, 1); 
-		  if(line->n_allele == 2  && line->pos+1 >= pos_left && line->pos+1 < pos_right ){++nline;}
+		  if(line->n_allele == 2  && line->pos+1 >= pos && line->pos+1 < pos+block ){++nline;}
 	  }
       if( !isec_only && bcf_sr_has_line(reader,0) && !bcf_sr_has_line(reader,1) ){ 
 		  line =  bcf_sr_get_line(reader, 0); 
-		  ++nwrote; bcf_write(out_fh, new_hdr, line);  
+		  if(line->n_allele == 2  && line->pos+1 >= pos && line->pos+1 < pos+block ){
+		  ++nwrote; bcf_write(out_fh, new_hdr, line);  }
 	  }
     }	
   }	
