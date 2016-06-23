@@ -32,6 +32,7 @@ void usage(){
   cerr << "\t -O  : 		output vcf type" << endl;
   cerr << "\t -Ogp:			output genotype probabilities" << endl;
   cerr << "\t -v:			verbose output" << endl;
+  cerr << "\t -isec:			output overlapping sites only" << endl;
   cerr << "\t -num_threads: 	threads in a single window (default 1)" << endl;
   cerr << "\n\t  Window params...\n" << endl;
   cerr << "\t -r: 			chromosome region (mandatory)" << endl;
