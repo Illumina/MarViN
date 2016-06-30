@@ -82,8 +82,8 @@ Expects input_filename.vcf.gz to contain GL or PL field
   * -lambda2 : regularization parameter, controls steepness of sigma regularization. Default is 4.
   * -pct : regularization parameter, controls the midpoint of the sigma regularization. Default is 0.2.
 
-#marvin.py
-We also provide a script (`scripts/marvin.py`) to facilitate processing of large WGS data sets on multi-CPU systems (bcftools required for concantenation). This is how results in our paper were generated. The script performs analysis on chunks of size `w * 2b` using multiple CPUs and stores the results in temporary files. The files are then concatenated using bcftools.
+##marvin.py
+We also provide a wrapper script  to facilitate processing of large WGS data sets on multi-CPU systems (bcftools required for concatenation). This is how results in our paper were generated. The script performs analysis on chunks of size `w * 2b` using multiple CPUs and stores the results in temporary files. The files are then concatenated using bcftools.
 
 ```
 $ python scripts/marvin.py
