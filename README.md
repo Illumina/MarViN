@@ -25,7 +25,7 @@ Set up means and covariances for marvin. Use this if you have a reference panel.
 
 Usage:
 
-```./marvin_prep -f panel.bcf -r 20 -O b -o sites.20.bcf -b 200000 -ov 5000 ```
+```./marvin_prep -f panel.bcf -r 20 -O b -o sites.20.bcf -b 100000 -ov 50000 ```
 
 Expects panel.bcf to contain hard genotypes. 
 
@@ -89,7 +89,7 @@ MarViN should be run on a small window (recommend 200Kb). If there are M variant
 ##Call genotypes from a population given likelihoods
 Assuming that `input.vcf.gz` contains genotype likelihoods in the specified region and is indexed (.csi or .tbi)
 ```
-./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 200000 -ov 50000
+./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 100000 -ov 50000
 ```
 `out.vcf.gz` will contain genotypes imputed under MarViN's LD model between 1Mb and 2Mb on chromosome chr20, in blocks of 200kb, using overlap of 5kb on either side of the window.
 
