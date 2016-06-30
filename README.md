@@ -24,8 +24,12 @@ Which creates the two executables: `marvin` and `marvin_prep`.
 Set up means and covariances for marvin. Use this if you have a reference panel. If you want to genotype a large cohort from likelihoods you do not need to run this.
 
 Usage:
+
 ```./marvin_prep -f panel.bcf -r 20 -O b -o sites.20.bcf -b 200000 -ov 5000 ```
-Expects panel.bcf to contain hard genotypes. Options:
+
+Expects panel.bcf to contain hard genotypes. 
+
+Options:
 
 * -f : The input vcf file. Can be valid vcf or bcf, compressed or uncompressed. Should contain at least two samples and must have a GT field with no missing entries for any sample/variant combination.
 * -o : marvin\_prep outputs a site only vcf containing the sites kept from the input vcf and the correlations above the threshold max_ratio. Specify the site file name with this argument.
@@ -43,10 +47,15 @@ Expects panel.bcf to contain hard genotypes. Options:
 Imputation from genotype likelihoods
 
 Usage:
+
 With panel
+
 ```./marvin -f input.20.bcf -O b -o out.20.bcf -site sites.20.bcf -r 20 -b 200000 -ov 5000```
+
 From likelihoods
+
 ```./marvin -f input.bcf -O b -o out.bcf -b 20000 -ov 5000```
+
 Expects input_filename.vcf.gz to contain GL or PL field
 * I/O
   * -f : the input vcf file. Can be valid vcf or bcf, compressed or uncompressed. 
