@@ -25,7 +25,7 @@ Set up means and covariances for marvin. Use this if you have a reference panel.
 
 Usage:
 
-```./marvin_prep -f panel.bcf -r 20 -O b -o sites.20.bcf -b 100000 -ov 50000 ```
+```./marvin_prep -f panel.bcf -r 20 -O b -o sites.20.bcf -b 100000 -ov 5000 ```
 
 Expects panel.bcf to contain hard genotypes. 
 
@@ -50,7 +50,7 @@ Usage:
 
 With panel
 
-```./marvin -f input.20.bcf -O b -o out.20.bcf -site sites.20.bcf -r 20 -b 100000 -ov 50000```
+```./marvin -f input.20.bcf -O b -o out.20.bcf -site sites.20.bcf -r 20 -b 100000 -ov 5000```
 
 From likelihoods
 
@@ -82,6 +82,17 @@ Expects input_filename.vcf.gz to contain GL or PL field
   * -lambda2 : regularization parameter, controls steepness of sigma regularization. Default is 4.
   * -pct : regularization parameter, controls the midpoint of the sigma regularization. Default is 0.2.
 
+#marvin.py
+We also provide a script (`scripts/marvin.py`) to facilitate processing of large WGS data sets on multi-CPU systems (bcftools required for concantenation). This is how results in our paper were generated. The script performs analysis on chunks of size `w * 2b` using multiple CPUs and stores the results in temporary files. The files are then concatenated using bcftools.
+
+```
+$ python scripts/marvin.py
+usage: marvin.py [-h] [-w w] [-b b] [-lamda lamda] -output
+                 output -r r -marvin marvin -bcftools bcftools [-tmp tmp]
+                 [-nprocess nprocess] [--phred]
+                 input
+```
+
 #Examples
 
 MarViN should be run on a small window (recommend 200Kb). If there are M variants in a window MarViN scales like M<sup>2</sup> for memory consumption and M<sup>3</sup> for speed. Linkage-Disequilibrium, which is responsible for the correlation patterns used by MarViN, typically decays rapidly with distance. In our experiments we found window sizes between 50Kb and 200Kb to be adequate.
@@ -89,17 +100,25 @@ MarViN should be run on a small window (recommend 200Kb). If there are M variant
 ##Call genotypes from a population given likelihoods
 Assuming that `input.vcf.gz` contains genotype likelihoods in the specified region and is indexed (.csi or .tbi)
 ```
-./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 100000 -ov 50000
+./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 200000 -ov 100000
 ```
-`out.vcf.gz` will contain genotypes imputed under MarViN's LD model between 1Mb and 2Mb on chromosome chr20, in blocks of 200kb, using overlap of 5kb on either side of the window.
+`out.vcf.gz` will contain genotypes imputed under MarViN's LD model between 1Mb and 2Mb on chromosome chr20, in blocks of 200kb, using overlap of 100kb on either side of the window.
+
+In practice, it is easier to use the `marvin.py` script to analyse whole chromosomes:
+```
+python ~/MarViN/scripts/marvin.py ALL.chr20.phase3_bc_union.20130502.biallelic_svm_snps_indelsAF0.005_svs.gl.reheader.mac1.snps.bcf -nproc 24  -tmp /tmp/ -o marvin.chr20.bcf -r 20:60479-26319535,20:29419740-62965354 -marvin ~/MarViN/marvin -bcftools ~/.local/bin/bcftools
+```
+This command will leverage 24 separate marvin processes. The `-marvin` and `-bcftools` arguments tell the script the locations of the respective binaries. The `-tmp` tells the script where to store temprorary files (should use local scratch). The output (`-o`) will be output for the regions specified in `-r`. In the above example I specify two separate regions to analyse the arms of chromosome 20 separately (ensuring a window will not span the centromere).
+
 
 ##Improve calls in sample given a reference panel
 Preprocessing the panel, which must be done once to precalculate the necessary matrix inverses.
 ```
-./marvin_prep -f panel.vcf.gz -O z -o sites.20.vcf.gz -r 20 -b 100000 -ov 50000
+./marvin_prep -f panel.vcf.gz -O z -o sites.20.vcf.gz -r 20 -b 100000 -ov 5000
 ```
 If panel.vcf.gz contains reference panel data (multisample vcf/bcf of hard genotypes, with no missing sites) for chromosome 20 then the code above computes correlation matrices in blocks of 100kb using overlap of 5kb between neighbouring blocks.
 After indexing sites.20.vcf.gz, to impute any new sample run
+
 ```
 ./marvin -f input.vcf.gz -O z -o out.vcf.gz -site sites.20.vcf.gz -r 20 -b 100000 -ov 50000
 ```
