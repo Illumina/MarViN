@@ -106,7 +106,9 @@ Assuming that `input.vcf.gz` contains genotype likelihoods in the specified regi
 
 In practice, it is easier to use the `marvin.py` script to analyse whole chromosomes:
 ```
-python ~/MarViN/scripts/marvin.py ALL.chr20.phase3_bc_union.20130502.biallelic_svm_snps_indelsAF0.005_svs.gl.reheader.mac1.snps.bcf -nproc 24  -tmp /tmp/ -o marvin.chr20.bcf -r 20:60479-26319535,20:29419740-62965354 -marvin ~/MarViN/marvin -bcftools ~/.local/bin/bcftools
+python ~/MarViN/scripts/marvin.py ALL.chr20.phase3_bc_union.20130502.biallelic_svm_snps_indelsAF0.005_svs.gl.reheader.mac1.snps.bcf
+                                  \-nproc 24  -tmp /tmp/ -o marvin.chr20.bcf -r 20:60479-26319535,20:29419740-62965354 
+                                  \-marvin ~/MarViN/marvin -bcftools ~/.local/bin/bcftools
 ```
 This command will leverage 24 separate marvin processes. The `-marvin` and `-bcftools` arguments tell the script the locations of the respective binaries. The `-tmp` tells the script where to store temprorary files (should use local scratch). The output (`-o`) will be output for the regions specified in `-r`. In the above example I specify two separate regions to analyse the arms of chromosome 20 separately (ensuring a window will not span the centromere).
 
