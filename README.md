@@ -50,11 +50,11 @@ Usage:
 
 With panel
 
-```./marvin -f input.20.bcf -O b -o out.20.bcf -site sites.20.bcf -r 20 -b 200000 -ov 5000```
+```./marvin -f input.20.bcf -O b -o out.20.bcf -site sites.20.bcf -r 20 -b 100000 -ov 50000```
 
 From likelihoods
 
-```./marvin -f input.bcf -O b -o out.bcf -b 20000 -ov 5000```
+```./marvin -f input.bcf -O b -o out.bcf -b 100000 -ov 50000```
 
 Expects input_filename.vcf.gz to contain GL or PL field
 * I/O
@@ -89,19 +89,19 @@ MarViN should be run on a small window (recommend 200Kb). If there are M variant
 ##Call genotypes from a population given likelihoods
 Assuming that `input.vcf.gz` contains genotype likelihoods in the specified region and is indexed (.csi or .tbi)
 ```
-./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 200000 -ov 5000
+./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 200000 -ov 50000
 ```
 `out.vcf.gz` will contain genotypes imputed under MarViN's LD model between 1Mb and 2Mb on chromosome chr20, in blocks of 200kb, using overlap of 5kb on either side of the window.
 
 ##Improve calls in sample given a reference panel
 Preprocessing the panel, which must be done once to precalculate the necessary matrix inverses.
 ```
-./marvin_prep -f panel.vcf.gz -O z -o sites.20.vcf.gz -r 20 -b 100000 -ov 5000
+./marvin_prep -f panel.vcf.gz -O z -o sites.20.vcf.gz -r 20 -b 100000 -ov 50000
 ```
 If panel.vcf.gz contains reference panel data (multisample vcf/bcf of hard genotypes, with no missing sites) for chromosome 20 then the code above computes correlation matrices in blocks of 100kb using overlap of 5kb between neighbouring blocks.
 After indexing sites.20.vcf.gz, to impute any new sample run
 ```
-./marvin -f input.vcf.gz -O z -o out.vcf.gz -site sites.20.vcf.gz -r 20 -b 100000 -ov 5000
+./marvin -f input.vcf.gz -O z -o out.vcf.gz -site sites.20.vcf.gz -r 20 -b 100000 -ov 50000
 ```
 `out.vcf.gz` has the GT field added or overwritten with the imputed genotypes using correlation information from sites.20.vcf.gz.
 
