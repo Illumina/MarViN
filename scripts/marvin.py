@@ -9,7 +9,7 @@ if __name__ == "__main__":
     parser.add_argument('input', metavar='input', type=str, help='input bcf/vcf')
     parser.add_argument('-w', metavar='w', type=int, help='window size in bp. (analyses w + 2b but only outputs w)',default=200000)
     parser.add_argument('-b', metavar='b', type=int, help='buffer size in bp.  ',default=100000)
-    parser.add_argument('-alpha', metavar='alpha', type=float, help='regularization paramter',default=None)
+    #parser.add_argument('-alpha', metavar='alpha', type=float, help='regularization paramter',default=None)
     parser.add_argument('-lamda', metavar='lamda', type=float, help='regularization paramter',default=None)
     parser.add_argument('-output', metavar='output', type=str, help='output bcf',required=True)
     parser.add_argument('-r', metavar='r', type=str, help='region in chromosome:start-stop format',required=True)
