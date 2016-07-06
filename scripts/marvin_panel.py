@@ -39,7 +39,6 @@ if __name__ == "__main__":
     assert os.path.isdir(tmp_dir)
     region_list=[]
 
-#~/kimura/marvin/marvin -f NA12878.fb.1000G.v4.bcf  -fm /illumina/scratch/denovo/rarthur/Marvin/bayes_panel2/data/marvin/mu.1.11995000-12205000.dat -fw /illumina/scratch/denovo/rarthur/Marvin/bayes_panel2/data/marvin/omega.1.11995000-12205000.dat -fv /illumina/scratch/denovo/rarthur/Marvin/bayes_panel2/data/marvin/var.1.11995000-12205000.dat -inner_its 5 -O b -o test.marvin.bcf  -site  /illumina/scratch/denovo/rarthur/Marvin/bayes_panel2/data/marvin/sites.1.11995000-12205000.bcf -r 1:11995000-12205000
 
     for r  in itertools.imap(parse_line,gzip.open(args.panel)):
         assert(len(r)==3)
