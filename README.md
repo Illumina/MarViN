@@ -44,7 +44,7 @@ Options:
 * -ov : overlap between neighbouring blocks. 
 * -max_ratio : only keep elements of correlation matrix s.t. |Cij/max(|Cij|)| > r. Default r = 0.01.
 
-##marvin
+## marvin
 Imputation from genotype likelihoods
 
 Usage:
@@ -83,7 +83,7 @@ Expects input_filename.vcf.gz to contain GL or PL field
   * -lambda2 : regularization parameter, controls steepness of sigma regularization. Default is 4.
   * -pct : regularization parameter, controls the midpoint of the sigma regularization. Default is 0.2.
 
-##marvin.py
+## marvin.py
 We also provide a wrapper script  to facilitate processing of large WGS data sets on multi-CPU systems (bcftools required for concatenation). This is how results in our paper were generated. The script performs analysis on chunks of size `w * 2b` using multiple CPUs and stores the results in temporary files. The files are then concatenated using bcftools.
 
 ```
@@ -94,11 +94,11 @@ usage: marvin.py [-h] [-w w] [-b b] [-lamda lamda] -output
                  input
 ```
 
-#Examples
+# Examples
 
 MarViN should be run on a small window (recommend 200Kb). If there are M variants in a window MarViN scales like M<sup>2</sup> for memory consumption and M<sup>3</sup> for speed. Linkage-Disequilibrium, which is responsible for the correlation patterns used by MarViN, typically decays rapidly with distance. In our experiments we found window sizes between 50Kb and 200Kb to be adequate.
 
-##Call genotypes from a population given likelihoods
+## Call genotypes from a population given likelihoods
 Assuming that `input.vcf.gz` contains genotype likelihoods in the specified region and is indexed (.csi or .tbi)
 ```
 ./marvin -f input.vcf.gz -O z -o out.vcf.gz -r chr20:1000000-2000000 -b 200000 -ov 100000
@@ -114,7 +114,7 @@ python ~/MarViN/scripts/marvin.py ALL.chr20.phase3_bc_union.20130502.biallelic_s
 This command will leverage 24 separate marvin processes. The `-marvin` and `-bcftools` arguments tell the script the locations of the respective binaries. The `-tmp` tells the script where to store temprorary files (should use local scratch). The output (`-o`) will be output for the regions specified in `-r`. In the above example I specify two separate regions to analyse the arms of chromosome 20 separately (ensuring a window will not span the centromere).
 
 
-##Improve calls in sample given a reference panel
+## Improve calls in sample given a reference panel
 Preprocessing the panel, which must be done once to precalculate the necessary matrix inverses.
 ```
 ./marvin_prep -f panel.vcf.gz -O z -o sites.20.vcf.gz -r 20 -b 100000 -ov 5000
