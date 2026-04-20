@@ -6,7 +6,7 @@ Copyright (c) 2015, Illumina, Inc. All rights reserved.
 See our [pre-print](http://biorxiv.org/content/biorxiv/early/2015/11/12/031484.full.pdf) for a full description of the method.
 
 ## License
-MarViN source code is provided under the [PolyForm Strict License 1.0.0](https://git.illumina.com/rarthur/MarViN/blob/master/LICENSE.txt) license. MarViN includes several third-party packages provided under other open source licenses, please see [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt) for additional details.
+MarViN source code is provided under the [PolyForm Strict License 1.0.0](https://github.com/Illumina/MarViN/blob/master/LICENSE.txt) license. MarViN includes several third-party packages provided under other open source licenses, please see [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt) for additional details.
 
 MarViN relies on HTSlib and Eigen. [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) is a header-only library for matrix algebra released under the MPL2 license - see the link (https://www.mozilla.org/en-US/MPL/2.0/) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt). [HTSlib](http://www.htslib.org/) is a library for efficently parsing vcf files released under the MIT/Expat License - see the link (https://opensource.org/licenses/MIT) and [COPYRIGHT.txt](https://git.illumina.com/rarthur/MarViN/blob/master/COPYRIGHT.txt).
 Both Eigen and HTSlib are included with MarViN.
